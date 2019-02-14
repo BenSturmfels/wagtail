@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^choose-page/search/$', chooser.search, name='wagtailadmin_choose_page_search'),
     url(r'^choose-external-link/$', chooser.external_link, name='wagtailadmin_choose_page_external_link'),
     url(r'^choose-email-link/$', chooser.email_link, name='wagtailadmin_choose_page_email_link'),
+    url(r'^choose-telephone-link/$', chooser.telephone_link, name='wagtailadmin_choose_page_telephone_link'),
 
     url(r'^tag-autocomplete/$', tags.autocomplete, name='wagtailadmin_tag_autocomplete'),
 

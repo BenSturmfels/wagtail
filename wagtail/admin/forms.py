@@ -61,6 +61,11 @@ class EmailLinkChooserForm(forms.Form):
     link_text = forms.CharField(required=False)
 
 
+class TelephoneLinkChooserForm(forms.Form):
+    telephone_number = forms.CharField(required=True)
+    link_text = forms.CharField(required=False)
+
+
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
         max_length=254, widget=forms.TextInput(attrs={'tabindex': '1'}))

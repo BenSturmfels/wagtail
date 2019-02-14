@@ -254,3 +254,40 @@ def email_link(request):
             'form': form,
         })
     )
+
+from wagtail.admin.forms import TelephoneLinkChooserForm
+def telephone_link(request):
+    initial_data = {
+        'link_text': request.GET.get('link_text', ''),
+        'phone_number': request.GET.get('link_url', ''),
+    }
+
+    if request.method == 'POST':
+        form = TelephoneLinkChooserForm(request.POST, initial=initial_data)
+
+        if form.is_valid():
+            result = {
+                'url': 'tel:' + form.cleaned_data['telephone_number'],
+                'title': form.cleaned_data['link_text'].strip() or form.cleaned_data['telephone_number'],
+                # If the user has explicitly entered / edited something in the link_text field,
+                # always use that text. If not, we should favour keeping the existing link/selection
+                # text, where applicable.
+                'prefer_this_title_as_link_text': ('link_text' in form.changed_data),
+            }
+            return render_modal_workflow(
+                request,
+                None, 'wagtailadmin/chooser/external_link_chosen.js',
+                {
+                    'result_json': json.dumps(result),
+                }
+            )
+    else:
+        form = TelephoneLinkChooserForm(initial=initial_data)
+
+    return render_modal_workflow(
+        request,
+        'wagtailadmin/chooser/telephone_link.html', 'wagtailadmin/chooser/telephone_link.js',
+        shared_context(request, {
+            'form': form,
+        })
+    )

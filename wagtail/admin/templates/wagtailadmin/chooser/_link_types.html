@@ -22,5 +22,11 @@
         {% elif allow_email_link %}
             | <a href="{% url 'wagtailadmin_choose_page_email_link' %}{% querystring p=None parent_page_id=parent_page_id %}">{% trans "Email link" %}</a>
         {% endif %}
+
+        {% if current == 'telephone' %}
+            | <b>{% trans "Telephone link" %}</b>
+        {% else %}
+            | <a href="{% url 'wagtailadmin_choose_page_telephone_link' %}{% querystring p=None parent_page_id=parent_page_id %}">{% trans "Telephone link" %}</a>
+        {% endif %}
     </p>
 {% endif %}
